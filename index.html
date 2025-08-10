@@ -322,6 +322,57 @@
       </div>
     </details>
 
+    <!-- ===== Variáveis de Ambiente ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Variáveis de Ambiente</span><span class="badge">6 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Configuração e uso de variáveis do sistema.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>export VAR=valor</code></td><td>export EDITOR=vim</td><td class="muted">Define variável global na sessão.</td></tr>
+          <tr><td class="cmd"><code>echo $VAR</code></td><td>echo $HOME</td><td class="muted">Mostra valor da variável.</td></tr>
+          <tr><td class="cmd"><code>env | grep &lt;termo&gt;</code></td><td>env | grep PATH</td><td class="muted">Lista variáveis filtradas.</td></tr>
+          <tr><td class="cmd"><code>printenv &lt;var&gt;</code></td><td>printenv USER</td><td class="muted">Mostra variável específica.</td></tr>
+          <tr><td class="cmd"><code>source ~/.bashrc</code></td><td></td><td class="muted">Recarrega configurações do shell.</td></tr>
+          <tr><td class="cmd"><code>unset &lt;var&gt;</code></td><td>unset TEMP_VAR</td><td class="muted">Remove variável da sessão.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Busca & Localização ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Busca & Localização</span><span class="badge">7 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Encontre arquivos, executáveis e conteúdo rapidamente.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>find / -name "*.log" -size +100M</code></td><td>find /var -name "*.log" -mtime -7</td><td class="muted">Busca avançada por nome, tamanho, data.</td></tr>
+          <tr><td class="cmd"><code>locate &lt;arquivo&gt;</code></td><td>locate nginx.conf</td><td class="muted">Busca rápida no índice (updatedb para atualizar).</td></tr>
+          <tr><td class="cmd"><code>which / whereis &lt;app&gt;</code></td><td>which python3</td><td class="muted">Localiza executáveis no PATH.</td></tr>
+          <tr><td class="cmd"><code>find . -type f -exec grep -l "texto" {} \;</code></td><td>find . -name "*.py" -exec grep -l "import" {} \;</td><td class="muted">Busca arquivos contendo texto.</td></tr>
+          <tr><td class="cmd"><code>find . -empty</code></td><td></td><td class="muted">Encontra arquivos e pastas vazios.</td></tr>
+          <tr><td class="cmd"><code>find . -perm 777</code></td><td></td><td class="muted">Busca por permissões específicas.</td></tr>
+          <tr><td class="cmd"><code>type &lt;comando&gt;</code></td><td>type ls</td><td class="muted">Verifica se é alias, função ou executável.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Containers Básico ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Containers (Docker/Podman)</span><span class="badge">8 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Comandos essenciais para containers.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>docker ps / ps -a</code></td><td></td><td class="muted">Lista containers rodando / todos.</td></tr>
+          <tr><td class="cmd"><code>docker run -d --name &lt;nome&gt; &lt;imagem&gt;</code></td><td>docker run -d --name web nginx</td><td class="muted">Executa container em background.</td></tr>
+          <tr><td class="cmd"><code>docker logs -f &lt;container&gt;</code></td><td>docker logs -f web</td><td class="muted">Segue logs em tempo real.</td></tr>
+          <tr><td class="cmd"><code>docker exec -it &lt;container&gt; bash</code></td><td>docker exec -it web bash</td><td class="muted">Acessa shell do container.</td></tr>
+          <tr><td class="cmd"><code>docker stop/start/restart &lt;container&gt;</code></td><td>docker restart web</td><td class="muted">Controla estado do container.</td></tr>
+          <tr><td class="cmd"><code>docker images / rmi &lt;imagem&gt;</code></td><td>docker rmi nginx:old</td><td class="muted">Lista/remove imagens.</td></tr>
+          <tr><td class="cmd"><code>docker-compose up -d</code></td><td></td><td class="muted">Sobe serviços em background.</td></tr>
+          <tr><td class="cmd"><code>podman run</code></td><td>podman run -d nginx</td><td class="muted">Alternativa sem daemon (mais segura).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
     <!-- ===== Atalhos ===== -->
     <details class="card" open>
       <summary><span style="flex:1">Atalhos do Terminal</span><span class="badge">5 itens</span></summary>
