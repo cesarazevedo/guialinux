@@ -194,6 +194,54 @@
       </div>
     </details>
 
+    <!-- ===== Logs & Troubleshooting ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Logs & Troubleshooting</span><span class="badge">8 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Investigação de problemas e análise de logs.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>journalctl --since "1 hour ago"</code></td><td>journalctl --since "10 min ago"</td><td class="muted">Logs das últimas horas/minutos.</td></tr>
+          <tr><td class="cmd"><code>journalctl -p err</code></td><td></td><td class="muted">Filtra apenas mensagens de erro.</td></tr>
+          <tr><td class="cmd"><code>dmesg | tail -20</code></td><td></td><td class="muted">Últimas mensagens do kernel.</td></tr>
+          <tr><td class="cmd"><code>tail -f /var/log/syslog</code></td><td>tail -f /var/log/auth.log</td><td class="muted">Acompanha logs em tempo real.</td></tr>
+          <tr><td class="cmd"><code>grep -i error /var/log/*</code></td><td>grep -i "failed" /var/log/auth.log</td><td class="muted">Busca erros em todos os logs.</td></tr>
+          <tr><td class="cmd"><code>last / lastb</code></td><td></td><td class="muted">Últimos logins / tentativas falhadas.</td></tr>
+          <tr><td class="cmd"><code>who / w</code></td><td></td><td class="muted">Usuários conectados agora.</td></tr>
+          <tr><td class="cmd"><code>systemctl --failed</code></td><td></td><td class="muted">Serviços que falharam na inicialização.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Regex & Padrões ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Regex & Padrões</span><span class="badge">8 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Expressões regulares e processamento avançado de texto.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>grep -E "^[0-9]+$"</code></td><td>grep -E "^[0-9]+$" numeros.txt</td><td class="muted">Linhas contendo apenas números.</td></tr>
+          <tr><td class="cmd"><code>grep -E "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"</code></td><td>grep -E "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+" logs.txt</td><td class="muted">Busca emails (padrão básico).</td></tr>
+          <tr><td class="cmd"><code>sed 's/old/new/g' &lt;arquivo&gt;</code></td><td>sed 's/http:/https:/g' urls.txt</td><td class="muted">Substitui todas as ocorrências.</td></tr>
+          <tr><td class="cmd"><code>sed -n '5,10p' &lt;arquivo&gt;</code></td><td>sed -n '1,5p' config.txt</td><td class="muted">Mostra apenas linhas 5 a 10.</td></tr>
+          <tr><td class="cmd"><code>awk '/pattern/ {print $2}'</code></td><td>awk '/ERROR/ {print $1, $3}' log.txt</td><td class="muted">Extrai colunas específicas com padrão.</td></tr>
+          <tr><td class="cmd"><code>awk -F: '{print $1}' /etc/passwd</code></td><td></td><td class="muted">Usa ":" como separador de campo.</td></tr>
+          <tr><td class="cmd"><code>grep -P "\d{3}-\d{3}-\d{4}"</code></td><td>grep -P "\d{3}-\d{3}-\d{4}" contatos.txt</td><td class="muted">Regex Perl: busca telefones (xxx-xxx-xxxx).</td></tr>
+          <tr><td class="cmd"><code>grep -v "^#\|^$"</code></td><td>grep -v "^#\|^$" config.conf</td><td class="muted">Remove comentários e linhas vazias.</td></tr>
+        </tbody></table>
+        
+        <p style="margin-top:16px; font-weight:600;">Principais Padrões Regex:</p>
+        <table><thead><tr><th>Padrão</th><th>Significado</th><th>Exemplo</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>^</code></td><td class="muted">Início da linha</td><td>^root (linhas que começam com "root")</td></tr>
+          <tr><td class="cmd"><code>$</code></td><td class="muted">Final da linha</td><td>\.txt$ (linhas que terminam com ".txt")</td></tr>
+          <tr><td class="cmd"><code>[0-9]</code></td><td class="muted">Qualquer dígito</td><td>[0-9]+ (um ou mais números)</td></tr>
+          <tr><td class="cmd"><code>[a-zA-Z]</code></td><td class="muted">Qualquer letra</td><td>[a-z]* (zero ou mais letras minúsculas)</td></tr>
+          <tr><td class="cmd"><code>.</code></td><td class="muted">Qualquer caractere</td><td>a.b (axb, ayb, azb, etc.)</td></tr>
+          <tr><td class="cmd"><code>*</code></td><td class="muted">Zero ou mais</td><td>ab* (a, ab, abb, abbb...)</td></tr>
+          <tr><td class="cmd"><code>+</code></td><td class="muted">Um ou mais</td><td>ab+ (ab, abb, abbb... mas não "a")</td></tr>
+          <tr><td class="cmd"><code>\|</code></td><td class="muted">OU lógico</td><td>cat\|dog (busca "cat" ou "dog")</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
     <!-- ===== Usuários & Grupos ===== -->
     <details class="card" open>
       <summary><span style="flex:1">Usuários & Grupos</span><span class="badge">5 comandos</span></summary>
