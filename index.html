@@ -76,6 +76,33 @@
       </div>
     </details>
 
+    <!-- ===== Links e Atalhos ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Links e Atalhos</span><span class="badge">7 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Hardlinks, softlinks e navegação por atalhos.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>ln &lt;orig&gt; &lt;hardlink&gt;</code></td><td>ln arquivo.txt backup.txt</td><td class="muted">Hardlink: mesmo arquivo, nomes diferentes.</td></tr>
+          <tr><td class="cmd"><code>ln -s &lt;orig&gt; &lt;softlink&gt;</code></td><td>ln -s /var/www/site atual</td><td class="muted">Softlink: atalho que aponta para outro lugar.</td></tr>
+          <tr><td class="cmd"><code>readlink -f &lt;link&gt;</code></td><td>readlink -f atual</td><td class="muted">Mostra destino real do link.</td></tr>
+          <tr><td class="cmd"><code>ls -l</code></td><td>ls -l atual</td><td class="muted">Softlinks aparecem como: atual -> /destino</td></tr>
+          <tr><td class="cmd"><code>find . -type l</code></td><td></td><td class="muted">Encontra todos os links simbólicos.</td></tr>
+          <tr><td class="cmd"><code>find . -samefile &lt;arquivo&gt;</code></td><td>find . -samefile config.txt</td><td class="muted">Encontra hardlinks do mesmo arquivo.</td></tr>
+          <tr><td class="cmd"><code>unlink &lt;link&gt;</code></td><td>unlink atual</td><td class="muted">Remove link (equivale a rm).</td></tr>
+        </tbody></table>
+        
+        <p style="margin-top:16px; font-weight:600;">Diferenças entre Hardlink e Softlink:</p>
+        <table><thead><tr><th>Aspecto</th><th>Hardlink</th><th>Softlink (Symlink)</th></tr></thead><tbody>
+          <tr><td class="cmd"><strong>Conceito</strong></td><td class="muted">Mesmo arquivo, múltiplos nomes</td><td class="muted">Atalho que aponta para outro arquivo</td></tr>
+          <tr><td class="cmd"><strong>Comando</strong></td><td>ln arquivo copia</td><td>ln -s arquivo atalho</td></tr>
+          <tr><td class="cmd"><strong>Se original for deletado</strong></td><td class="muted">✅ Hardlink continua funcionando</td><td class="muted">❌ Softlink fica "quebrado"</td></tr>
+          <tr><td class="cmd"><strong>Funciona entre discos</strong></td><td class="muted">❌ Só no mesmo filesystem</td><td class="muted">✅ Funciona entre discos diferentes</td></tr>
+          <tr><td class="cmd"><strong>Funciona com pastas</strong></td><td class="muted">❌ Só arquivos</td><td class="muted">✅ Arquivos e pastas</td></tr>
+          <tr><td class="cmd"><strong>Visualização</strong></td><td class="muted">Parece arquivo normal</td><td class="muted">Mostra seta: atalho -> destino</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
     <!-- ===== Texto & Filtros ===== -->
     <details class="card" open>
       <summary><span style="flex:1">Texto & Filtros (GNU)</span><span class="badge">8 comandos</span></summary>
@@ -90,6 +117,33 @@
           <tr><td class="cmd"><code>sed -n "5,10p" &lt;arq&gt;</code></td><td>sed -n "5,10p" notas.txt</td><td class="muted">Editor de fluxo; também substituição.</td></tr>
           <tr><td class="cmd"><code>sort | uniq -c | sort -nr</code></td><td>cut -d' ' -f7 access.log | sort | uniq -c | sort -nr | head</td><td class="muted">Contagem de ocorrências.</td></tr>
           <tr><td class="cmd"><code>tr -d "\r" &lt;arq&gt;</code></td><td>tr -d "\r" &lt; arquivo.txt &gt; arquivo_unix.txt</td><td class="muted">Remove CR (Windows→Unix).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Links e Atalhos ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Links e Atalhos</span><span class="badge">7 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Hardlinks, softlinks e navegação por atalhos.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>ln &lt;orig&gt; &lt;hardlink&gt;</code></td><td>ln arquivo.txt backup.txt</td><td class="muted">Hardlink: mesmo arquivo, nomes diferentes.</td></tr>
+          <tr><td class="cmd"><code>ln -s &lt;orig&gt; &lt;softlink&gt;</code></td><td>ln -s /var/www/site atual</td><td class="muted">Softlink: atalho que aponta para outro lugar.</td></tr>
+          <tr><td class="cmd"><code>readlink -f &lt;link&gt;</code></td><td>readlink -f atual</td><td class="muted">Mostra destino real do link.</td></tr>
+          <tr><td class="cmd"><code>ls -l</code></td><td>ls -l atual</td><td class="muted">Softlinks aparecem como: atual -> /destino</td></tr>
+          <tr><td class="cmd"><code>find . -type l</code></td><td></td><td class="muted">Encontra todos os links simbólicos.</td></tr>
+          <tr><td class="cmd"><code>find . -samefile &lt;arquivo&gt;</code></td><td>find . -samefile config.txt</td><td class="muted">Encontra hardlinks do mesmo arquivo.</td></tr>
+          <tr><td class="cmd"><code>unlink &lt;link&gt;</code></td><td>unlink atual</td><td class="muted">Remove link (equivale a rm).</td></tr>
+        </tbody></table>
+        
+        <p style="margin-top:16px; font-weight:600;">Diferenças entre Hardlink e Softlink:</p>
+        <table><thead><tr><th>Aspecto</th><th>Hardlink</th><th>Softlink (Symlink)</th></tr></thead><tbody>
+          <tr><td class="cmd"><strong>Conceito</strong></td><td class="muted">Mesmo arquivo, múltiplos nomes</td><td class="muted">Atalho que aponta para outro arquivo</td></tr>
+          <tr><td class="cmd"><strong>Comando</strong></td><td>ln arquivo copia</td><td>ln -s arquivo atalho</td></tr>
+          <tr><td class="cmd"><strong>Se original for deletado</strong></td><td class="muted">✅ Hardlink continua funcionando</td><td class="muted">❌ Softlink fica "quebrado"</td></tr>
+          <tr><td class="cmd"><strong>Funciona entre discos</strong></td><td class="muted">❌ Só no mesmo filesystem</td><td class="muted">✅ Funciona entre discos diferentes</td></tr>
+          <tr><td class="cmd"><strong>Funciona com pastas</strong></td><td class="muted">❌ Só arquivos</td><td class="muted">✅ Arquivos e pastas</td></tr>
+          <tr><td class="cmd"><strong>Visualização</strong></td><td class="muted">Parece arquivo normal</td><td class="muted">Mostra seta: atalho -> destino</td></tr>
         </tbody></table>
       </div>
     </details>
