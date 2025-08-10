@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guia de Comandos Unix/Linux — versão estática</title>
+  <style>
+    :root { --bg:#0b0f14; --panel:#121821; --panel-2:#0e141c; --text:#e6edf3; --muted:#9fb0c3; --accent:#7aa2f7; --accent-2:#4fd1c5; --danger:#f7768e; --ok:#9ece6a; --border:#223042; --badge:#1b2736; --kbd-bg:#1a2230; --shadow:0 10px 25px rgba(0,0,0,.35);} 
+    .light { --bg:#f7f9fc; --panel:#ffffff; --panel-2:#f2f6fb; --text:#0d1723; --muted:#4b5b6b; --accent:#275efe; --accent-2:#0f9d8a; --danger:#c03448; --ok:#2e7d32; --border:#e3e8ef; --badge:#eef2f7; --kbd-bg:#eef2f7; --shadow:0 10px 25px rgba(15,23,42,.15);} 
+    html,body{height:100%} body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,"Helvetica Neue",Arial}
+    header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(120%) blur(6px);background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0)),var(--bg);border-bottom:1px solid var(--border)}
+    .wrap{max-width:1100px;margin:0 auto;padding:18px 16px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .title{font-weight:800;letter-spacing:.2px;font-size:20px;margin-right:auto;display:flex;align-items:center;gap:10px}
+    .title small{font-weight:600;color:var(--muted)}
+    .btn{appearance:none;border:1px solid var(--border);background:var(--panel);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;box-shadow:var(--shadow)}
+    .btn:hover{filter:brightness(1.07)}
+    .grid{max-width:1100px;margin:20px auto;padding:0 16px 60px;display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width:960px){.grid{grid-template-columns:1fr 1fr}}
+    details.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+    details.card[open] summary{border-bottom:1px solid var(--border)}
+    summary{list-style:none;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700}
+    summary::-webkit-details-marker{display:none}
+    .badge{font-size:12px;background:var(--badge);color:var(--muted);border:1px solid var(--border);padding:4px 8px;border-radius:999px}
+    .content{padding:2px 16px 14px}
+    .desc{color:var(--muted);margin-top:-4px;margin-bottom:12px}
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    th,td{text-align:left;border-bottom:1px solid var(--border);padding:10px 8px;vertical-align:top}
+    th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+    tr:last-child td{border-bottom:none}
+    code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px}
+    code{background:var(--panel-2);padding:2px 6px;border-radius:8px;border:1px solid var(--border);display:inline-block}
+    .cmd{display:flex;gap:10px;align-items:stretch}
+    kbd{background:var(--kbd-bg);border:1px solid var(--border);padding:2px 6px;border-radius:6px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.15)}
+    .footer{color:var(--muted);text-align:center;padding:24px;border-top:1px solid var(--border);background:var(--panel-2)}
+    .muted{color:var(--muted)}
+    .tips{display:flex;gap:8px;flex-wrap:wrap}
+    .tip{border:1px dashed var(--border);background:var(--panel-2);padding:8px 10px;border-radius:10px;font-size:13px}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border-radius:999px;border:1px solid var(--border);background:var(--panel)}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+    .copy{margin-left:auto}
+  </style>
+</head>
+<body class="light">
+  <header>
+    <div class="wrap toolbar">
+      <div class="title">Guia de Comandos Unix/Linux <small>— versão estática, pesquisável e imprimível</small></div>
+      <label class="pill"><span class="dot" id="themeDot"></span><span id="themeLabel">Tema claro</span></label>
+      <button id="themeToggle" class="btn" aria-pressed="false" title="Alternar tema (T)">Alternar tema</button>
+      <button id="expandAll" class="btn" title="Expandir tudo (E)">Expandir tudo</button>
+      <button id="collapseAll" class="btn" title="Recolher tudo (R)">Recolher tudo</button>
+      <button id="printBtn" class="btn" title="Imprimir/Salvar PDF (P)">Imprimir</button>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <!-- ===== Arquivos & Diretórios ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Arquivos & Diretórios</span><span class="badge">10 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Navegação, listagem, cópia, movimentação e links.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>ls -al</code></td><td>ls -al ~/.config</td><td class="muted">Lista com detalhes, incluindo arquivos ocultos.</td></tr>
+          <tr><td class="cmd"><code>cd &lt;dir&gt;</code></td><td>cd /var/log</td><td class="muted">Troca de diretório. Sem argumento vai para $HOME.</td></tr>
+          <tr><td class="cmd"><code>pwd</code></td><td></td><td class="muted">Mostra o diretório atual.</td></tr>
+          <tr><td class="cmd"><code>mkdir -p &lt;caminho&gt;</code></td><td>mkdir -p projetos/2025/app</td><td class="muted">Cria árvore de diretórios.</td></tr>
+          <tr><td class="cmd"><code>cp -r &lt;orig&gt; &lt;dest&gt;</code></td><td>cp -r site/ backup/site</td><td class="muted">Copia recursivamente.</td></tr>
+          <tr><td class="cmd"><code>mv &lt;orig&gt; &lt;dest&gt;</code></td><td>mv notas.txt docs/notas.txt</td><td class="muted">Move ou renomeia.</td></tr>
+          <tr><td class="cmd"><code>rm -rf &lt;alvo&gt;</code></td><td>rm -rf build/</td><td class="muted">Remove recursivo/forçado. ⚠️ Cuidado.</td></tr>
+          <tr><td class="cmd"><code>ln -s &lt;alvo&gt; &lt;link&gt;</code></td><td>ln -s /var/www/app current</td><td class="muted">Cria link simbólico.</td></tr>
+          <tr><td class="cmd"><code>touch &lt;arq&gt;</code></td><td>touch .env</td><td class="muted">Cria arquivo vazio ou atualiza o mtime.</td></tr>
+          <tr><td class="cmd"><code>tree -L 2</code></td><td>tree -L 2 src</td><td class="muted">Exibe estrutura hierárquica (instale com seu gerenciador).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Texto & Filtros ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Texto & Filtros (GNU)</span><span class="badge">8 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Ferramentas para visualizar, buscar e transformar texto.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>cat &lt;arq&gt; | less</code></td><td>cat /etc/services | less</td><td class="muted">Paginação com pesquisa /regex.</td></tr>
+          <tr><td class="cmd"><code>head -n 20 &lt;arq&gt;</code></td><td>head -n 20 access.log</td><td class="muted">Primeiras linhas.</td></tr>
+          <tr><td class="cmd"><code>tail -n 50 -f &lt;arq&gt;</code></td><td>tail -n 50 -f app.log</td><td class="muted">Últimas linhas e acompanhamento.</td></tr>
+          <tr><td class="cmd"><code>grep -RIn "regex" &lt;dir&gt;</code></td><td>grep -RIn "TODO" src</td><td class="muted">Busca recursiva (I ignora binários).</td></tr>
+          <tr><td class="cmd"><code>awk '{print $1}' &lt;arq&gt;</code></td><td>awk '{print $1}' /etc/passwd</td><td class="muted">Processamento por campos/linhas.</td></tr>
+          <tr><td class="cmd"><code>sed -n "5,10p" &lt;arq&gt;</code></td><td>sed -n "5,10p" notas.txt</td><td class="muted">Editor de fluxo; também substituição.</td></tr>
+          <tr><td class="cmd"><code>sort | uniq -c | sort -nr</code></td><td>cut -d' ' -f7 access.log | sort | uniq -c | sort -nr | head</td><td class="muted">Contagem de ocorrências.</td></tr>
+          <tr><td class="cmd"><code>tr -d "\r" &lt;arq&gt;</code></td><td>tr -d "\r" &lt; arquivo.txt &gt; arquivo_unix.txt</td><td class="muted">Remove CR (Windows→Unix).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Pipes & Redirecionamento ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Pipes & Redirecionamento</span><span class="badge">5 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Encadeie comandos e salve saídas/erros.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>cmd1 | cmd2</code></td><td>ps aux | grep nginx</td><td class="muted">Pipe: saída de um vira entrada de outro.</td></tr>
+          <tr><td class="cmd"><code>cmd &gt; out.txt 2&gt;&amp;1</code></td><td>make build &gt; build.log 2&gt;&amp;1</td><td class="muted">Redireciona stdout e stderr.</td></tr>
+          <tr><td class="cmd"><code>cmd &gt;&gt; out.txt</code></td><td>echo "ok" &gt;&gt; log.txt</td><td class="muted">Anexa ao arquivo.</td></tr>
+          <tr><td class="cmd"><code>cmd &lt; in.txt</code></td><td>sort &lt; palavras.txt</td><td class="muted">Entrada a partir de arquivo.</td></tr>
+          <tr><td class="cmd"><code>tee -a out.txt</code></td><td>pytest | tee -a test.log</td><td class="muted">Mostra e grava ao mesmo tempo.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Permissões ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Permissões & Propriedade</span><span class="badge">4 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Controle de acesso de arquivos e diretórios.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>chmod u+rwx,g+rx,o+r &lt;alvo&gt;</code></td><td>chmod u+rwx,g+rx,o+r script.sh</td><td class="muted">Modo simbólico.</td></tr>
+          <tr><td class="cmd"><code>chmod 755 &lt;alvo&gt;</code></td><td>chmod 755 /usr/local/bin/tool</td><td class="muted">Modo octal (r=4,w=2,x=1).</td></tr>
+          <tr><td class="cmd"><code>chown &lt;user&gt;:&lt;grupo&gt; &lt;alvo&gt;</code></td><td>sudo chown www-data:www-data /var/www</td><td class="muted">Muda dono e grupo.</td></tr>
+          <tr><td class="cmd"><code>umask 022</code></td><td></td><td class="muted">Define máscara padrão para novos arquivos.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Processos ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Processos & Jobs</span><span class="badge">7 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Monitoramento, sinais, execução em segundo plano.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>ps aux | less</code></td><td></td><td class="muted">Lista processos.</td></tr>
+          <tr><td class="cmd"><code>top / htop</code></td><td></td><td class="muted">Monitor interativo (instale htop).</td></tr>
+          <tr><td class="cmd"><code>kill -TERM &lt;pid&gt;</code></td><td>kill -TERM 1234</td><td class="muted">Solicita término educado.</td></tr>
+          <tr><td class="cmd"><code>kill -9 &lt;pid&gt;</code></td><td></td><td class="muted">Força encerramento (SIGKILL).</td></tr>
+          <tr><td class="cmd"><code>pkill &lt;nome&gt; / killall &lt;nome&gt;</code></td><td>pkill nginx</td><td class="muted">Finaliza por nome.</td></tr>
+          <tr><td class="cmd"><code>cmd &amp; disown</code></td><td>long_task &amp; disown</td><td class="muted">Executa em background e desacopla.</td></tr>
+          <tr><td class="cmd"><code>fg / bg</code></td><td></td><td class="muted">Controle de jobs no shell.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Usuários & Grupos ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Usuários & Grupos</span><span class="badge">5 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Criação, grupos e troca de identidade.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>id / whoami</code></td><td></td><td class="muted">Identidade atual e grupos.</td></tr>
+        <tr><td class="cmd"><code>sudo -u &lt;user&gt; &lt;cmd&gt;</code></td><td>sudo -u postgres psql</td><td class="muted">Executa como outro usuário.</td></tr>
+        <tr><td class="cmd"><code>useradd / usermod / userdel</code></td><td>sudo useradd -m joao</td><td class="muted">Gerencia usuários.</td></tr>
+        <tr><td class="cmd"><code>groupadd / gpasswd</code></td><td>sudo gpasswd -a joao docker</td><td class="muted">Gerencia grupos e associação.</td></tr>
+        <tr><td class="cmd"><code>passwd &lt;user&gt;</code></td><td>sudo passwd joao</td><td class="muted">Define/atualiza senha.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Rede & DNS ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Rede & DNS</span><span class="badge">7 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Diagnóstico e consulta de nomes.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>ip a / ip r</code></td><td></td><td class="muted">Endereços e rotas (substitui ifconfig/route).</td></tr>
+          <tr><td class="cmd"><code>ping -c 4 &lt;host&gt;</code></td><td>ping -c 4 8.8.8.8</td><td class="muted">Verifica conectividade.</td></tr>
+          <tr><td class="cmd"><code>curl -I https://exemplo.com</code></td><td></td><td class="muted">Cabeçalhos HTTP.</td></tr>
+          <tr><td class="cmd"><code>dig +short &lt;domínio&gt;</code></td><td>dig +short A terra.com.br</td><td class="muted">Consulta DNS simples.</td></tr>
+          <tr><td class="cmd"><code>nslookup &lt;domínio&gt;</code></td><td></td><td class="muted">Alternativa a dig.</td></tr>
+          <tr><td class="cmd"><code>traceroute &lt;host&gt;</code></td><td></td><td class="muted">Caminho até o destino.</td></tr>
+          <tr><td class="cmd"><code>wget -c &lt;url&gt;</code></td><td>wget -c arquivo.iso</td><td class="muted">Download com retomada.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Pacotes ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Pacotes & Instalação</span><span class="badge">7 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Empacotadores comuns e do sistema.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>apt update && apt upgrade</code></td><td>sudo apt update && sudo apt upgrade</td><td class="muted">Debian/Ubuntu: atualiza índices e pacotes.</td></tr>
+          <tr><td class="cmd"><code>apt install &lt;pkg&gt;</code></td><td>sudo apt install build-essential</td><td class="muted">Instala pacote.</td></tr>
+          <tr><td class="cmd"><code>dnf install &lt;pkg&gt;</code></td><td>sudo dnf install htop</td><td class="muted">Fedora/RHEL (novo).</td></tr>
+          <tr><td class="cmd"><code>pacman -Syu / -S &lt;pkg&gt;</code></td><td>sudo pacman -Syu</td><td class="muted">Arch Linux.</td></tr>
+          <tr><td class="cmd"><code>snap install &lt;pkg&gt;</code></td><td>sudo snap install --classic code</td><td class="muted">Snaps.</td></tr>
+          <tr><td class="cmd"><code>flatpak install &lt;remoto&gt; &lt;app&gt;</code></td><td>flatpak install flathub org.gimp.GIMP</td><td class="muted">Flatpak.</td></tr>
+          <tr><td class="cmd"><code>pipx install &lt;app&gt;</code></td><td>pipx install httpie</td><td class="muted">Apps Python isolados.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Compactação ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Compactação & Arquivos</span><span class="badge">5 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Tar, gzip, bzip2, xz e zip.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>tar -czf arquivo.tar.gz &lt;dir&gt;</code></td><td>tar -czf backup.tar.gz ~/projetos</td><td class="muted">Cria tar Gzip.</td></tr>
+          <tr><td class="cmd"><code>tar -xzf arquivo.tar.gz</code></td><td></td><td class="muted">Extrai tar Gzip.</td></tr>
+          <tr><td class="cmd"><code>zip -r arquivo.zip &lt;dir&gt;</code></td><td>zip -r site.zip site/</td><td class="muted">Cria .zip recursivo.</td></tr>
+          <tr><td class="cmd"><code>unzip arquivo.zip -d &lt;dest&gt;</code></td><td>unzip site.zip -d ./site</td><td class="muted">Extrai .zip.</td></tr>
+          <tr><td class="cmd"><code>xz -T0 arquivo</code></td><td></td><td class="muted">Compressão .xz usando todos os núcleos (-T0).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Sistema & Serviços EXPANDIDO ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Sistema & Serviços (systemd)</span><span class="badge">10 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Controle completo de serviços, logs e configurações do sistema.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>systemctl status &lt;serviço&gt;</code></td><td>sudo systemctl status nginx</td><td class="muted">Verifica estado do serviço.</td></tr>
+          <tr><td class="cmd"><code>systemctl start|stop|restart &lt;serviço&gt;</code></td><td>sudo systemctl restart ssh</td><td class="muted">Controla execução do serviço.</td></tr>
+          <tr><td class="cmd"><code>systemctl enable|disable &lt;serviço&gt;</code></td><td>sudo systemctl enable nginx</td><td class="muted">Habilita/desabilita na inicialização.</td></tr>
+          <tr><td class="cmd"><code>systemctl enable --now &lt;serviço&gt;</code></td><td>sudo systemctl enable --now docker</td><td class="muted">Habilita na inicialização e inicia agora.</td></tr>
+          <tr><td class="cmd"><code>systemctl list-units --type=service</code></td><td></td><td class="muted">Lista todos os serviços ativos.</td></tr>
+          <tr><td class="cmd"><code>systemctl list-units --failed</code></td><td></td><td class="muted">Mostra serviços que falharam.</td></tr>
+          <tr><td class="cmd"><code>journalctl -u &lt;serviço&gt; -f</code></td><td>sudo journalctl -u nginx -f</td><td class="muted">Segue logs do serviço em tempo real.</td></tr>
+          <tr><td class="cmd"><code>journalctl --since "1 hour ago"</code></td><td></td><td class="muted">Logs da última hora.</td></tr>
+          <tr><td class="cmd"><code>systemctl reload &lt;serviço&gt;</code></td><td>sudo systemctl reload nginx</td><td class="muted">Recarrega configuração sem parar.</td></tr>
+          <tr><td class="cmd"><code>hostnamectl / timedatectl</code></td><td></td><td class="muted">Configura hostname e tempo do sistema.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== NOVA SEÇÃO: Serviços de Rede ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Serviços de Rede Comuns</span><span class="badge">12 serviços</span></summary>
+      <div class="content">
+        <p class="desc">Principais serviços de rede e seus comandos típicos.</p>
+        <table><thead><tr><th>Serviço</th><th>Comando Principal</th><th>Configuração/Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>nginx</code></td><td>sudo systemctl reload nginx</td><td class="muted">Servidor web. Config: /etc/nginx/</td></tr>
+          <tr><td class="cmd"><code>apache2</code></td><td>sudo systemctl reload apache2</td><td class="muted">Servidor web Apache. Config: /etc/apache2/</td></tr>
+          <tr><td class="cmd"><code>ssh/sshd</code></td><td>sudo systemctl restart sshd</td><td class="muted">Acesso remoto. Config: /etc/ssh/sshd_config</td></tr>
+          <tr><td class="cmd"><code>dhcpd</code></td><td>sudo systemctl status isc-dhcp-server</td><td class="muted">Servidor DHCP. Config: /etc/dhcp/dhcpd.conf</td></tr>
+          <tr><td class="cmd"><code>named/bind9</code></td><td>sudo systemctl reload bind9</td><td class="muted">Servidor DNS. Config: /etc/bind/</td></tr>
+          <tr><td class="cmd"><code>smbd/nmbd</code></td><td>sudo systemctl restart smbd nmbd</td><td class="muted">Samba (compartilhamento Windows). Config: /etc/samba/smb.conf</td></tr>
+          <tr><td class="cmd"><code>nfs-server</code></td><td>sudo exportfs -ra</td><td class="muted">Network File System. Config: /etc/exports</td></tr>
+          <tr><td class="cmd"><code>vsftpd</code></td><td>sudo systemctl restart vsftpd</td><td class="muted">Servidor FTP. Config: /etc/vsftpd.conf</td></tr>
+          <tr><td class="cmd"><code>postfix</code></td><td>sudo postfix reload</td><td class="muted">Servidor de email (SMTP). Config: /etc/postfix/</td></tr>
+          <tr><td class="cmd"><code>dovecot</code></td><td>sudo systemctl restart dovecot</td><td class="muted">Servidor IMAP/POP3. Config: /etc/dovecot/</td></tr>
+          <tr><td class="cmd"><code>firewalld</code></td><td>sudo firewall-cmd --reload</td><td class="muted">Firewall dinâmico. Comando: firewall-cmd</td></tr>
+          <tr><td class="cmd"><code>networkd</code></td><td>sudo systemctl restart systemd-networkd</td><td class="muted">Gerenciamento de rede. Config: /etc/systemd/network/</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Discos & LVM ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Discos, Montagens & LVM</span><span class="badge">5 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Partições, sistemas de arquivos e uso.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>lsblk / blkid</code></td><td></td><td class="muted">Lista dispositivos de bloco / UUIDs.</td></tr>
+          <tr><td class="cmd"><code>df -h / du -sh *</code></td><td>du -sh * | sort -h</td><td class="muted">Uso de disco por partição / pasta.</td></tr>
+          <tr><td class="cmd"><code>mount / umount</code></td><td>sudo mount /dev/sdb1 /mnt</td><td class="muted">Monta/desmonta sistemas de arquivos.</td></tr>
+          <tr><td class="cmd"><code>mkfs.ext4 / xfs_repair</code></td><td></td><td class="muted">Cria e repara FS (⚠️ destrutivo ao criar).</td></tr>
+          <tr><td class="cmd"><code>pvcreate/vgcreate/lvcreate</code></td><td>sudo lvcreate -L 20G -n dados vg0</td><td class="muted">Fluxo básico LVM.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Tarefas & Cron ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Tarefas, Cron & Agendamento</span><span class="badge">4 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Execução programada de comandos.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>crontab -e</code></td><td></td><td class="muted">Edita cron do usuário.</td></tr>
+          <tr><td class="cmd"><code>crontab -l</code></td><td></td><td class="muted">Lista entradas.</td></tr>
+          <tr><td class="cmd"><code>@daily &lt;cmd&gt;</code></td><td>@daily backup.sh</td><td class="muted">Atalho de periodicidade no crontab.</td></tr>
+          <tr><td class="cmd"><code>systemd-run --on-calendar</code></td><td>systemd-run --on-calendar="Mon..Fri 09:00" notify-send "Bom dia"</td><td class="muted">Agendador do systemd (transiente).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== SSH & Cópia Remota ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">SSH & Cópia Remota</span><span class="badge">4 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Acesso seguro e transferência de arquivos.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>ssh -p &lt;porta&gt; user@host</code></td><td>ssh -p 2222 jeane@servidor</td><td class="muted">Conexão remota por porta customizada.</td></tr>
+          <tr><td class="cmd"><code>ssh-copy-id user@host</code></td><td></td><td class="muted">Instala a chave pública no servidor.</td></tr>
+          <tr><td class="cmd"><code>scp &lt;orig&gt; &lt;user@host:dest&gt;</code></td><td>scp arquivo.txt joao@server:/tmp</td><td class="muted">Cópia simples via SSH.</td></tr>
+          <tr><td class="cmd"><code>rsync -avP &lt;orig&gt; &lt;dest&gt;</code></td><td>rsync -avP site/ server:/var/www/site/</td><td class="muted">Sincronização incremental via SSH.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Git ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Git (básico)</span><span class="badge">5 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Controle de versão essencial.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>git init / clone &lt;url&gt;</code></td><td>git clone https://github.com/org/proj.git</td><td class="muted">Cria ou clona repositório.</td></tr>
+          <tr><td class="cmd"><code>git status / add -p</code></td><td></td><td class="muted">Estado e seleção interativa.</td></tr>
+          <tr><td class="cmd"><code>git commit -m "mensagem"</code></td><td></td><td class="muted">Registra alterações.</td></tr>
+          <tr><td class="cmd"><code>git pull / push</code></td><td></td><td class="muted">Integra e envia mudanças.</td></tr>
+          <tr><td class="cmd"><code>git log --oneline --graph --decorate --all</code></td><td></td><td class="muted">Histórico compacto com gráfico.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Info do Sistema ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Informações do Sistema</span><span class="badge">8 comandos</span></summary>
+      <div class="content">
+        <p class="desc">Kernel, CPU, memória e quem está logado.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>uname -a</code></td><td></td><td class="muted">Informações do kernel.</td></tr>
+          <tr><td class="cmd"><code>cat /etc/os-release</code></td><td></td><td class="muted">Distribuição e versão.</td></tr>
+          <tr><td class="cmd"><code>cat /proc/cpuinfo | less</code></td><td></td><td class="muted">Detalhes da CPU.</td></tr>
+          <tr><td class="cmd"><code>cat /proc/meminfo | less</code></td><td></td><td class="muted">Memória do sistema.</td></tr>
+          <tr><td class="cmd"><code>uptime / w / who</code></td><td></td><td class="muted">Tempo ligado e usuários logados.</td></tr>
+          <tr><td class="cmd"><code>df -h / free -h</code></td><td></td><td class="muted">Disco e memória livre.</td></tr>
+          <tr><td class="cmd"><code>whereis / which &lt;app&gt;</code></td><td>which python3</td><td class="muted">Localiza binários.</td></tr>
+          <tr><td class="cmd"><code>man &lt;comando&gt;</code></td><td>man chmod</td><td class="muted">Manual amigável do sistema.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Atalhos ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Atalhos do Terminal</span><span class="badge">5 itens</span></summary>
+      <div class="content">
+        <p class="desc">Produtividade no shell.</p>
+        <table><thead><tr><th>Combinação</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>Ctrl+C / Ctrl+Z / Ctrl+D</code></td><td></td><td class="muted">Interrompe, pausa e encerra entrada.</td></tr>
+          <tr><td class="cmd"><code>Ctrl+R</code></td><td></td><td class="muted">Busca no histórico.</td></tr>
+          <tr><td class="cmd"><code>!! / !&lt;n&gt; / !?texto?</code></td><td>sudo !!</td><td class="muted">Re-executa comandos do histórico.</td></tr>
+          <tr><td class="cmd"><code>Alt+. / Alt+f / Alt+b</code></td><td></td><td class="muted">Último argumento / move palavra.</td></tr>
+          <tr><td class="cmd"><code>alias ll="ls -alF"</code></td><td>echo "alias gs='git status'" >> ~/.bashrc</td><td class="muted">Cria atalhos persistentes.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Editores ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Editores (nano & vim)</span><span class="badge">3 itens</span></summary>
+      <div class="content">
+        <p class="desc">Comandos mínimos para sobreviver.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>nano &lt;arq&gt;</code></td><td></td><td class="muted">Saída: <kbd>Ctrl</kbd>+<kbd>X</kbd> → <kbd>Y</kbd> → <kbd>Enter</kbd>.</td></tr>
+          <tr><td class="cmd"><code>vim &lt;arq&gt;</code></td><td></td><td class="muted">Entrar no modo insert: <kbd>i</kbd>. Salvar e sair: <kbd>:wq</kbd>.</td></tr>
+          <tr><td class="cmd"><code>:q! (vim)</code></td><td></td><td class="muted">Sair sem salvar.</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+    <!-- ===== Segurança ===== -->
+    <details class="card" open>
+      <summary><span style="flex:1">Segurança & Permissões avançadas</span><span class="badge">4 itens</span></summary>
+      <div class="content">
+        <p class="desc">SUID/SGID, capabilities e firewall básico.</p>
+        <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>chmod u+s / g+s</code></td><td>chmod u+s /usr/bin/ping</td><td class="muted">SUID/SGID (⚠️ use com cuidado).</td></tr>
+          <tr><td class="cmd"><code>getcap / setcap</code></td><td>sudo setcap cap_net_bind_service=+ep /usr/bin/python3</td><td class="muted">Linux capabilities.</td></tr>
+          <tr><td class="cmd"><code>ufw enable / allow &lt;porta&gt;</code></td><td>sudo ufw allow 22/tcp</td><td class="muted">Firewall simples no Ubuntu.</td></tr>
+          <tr><td class="cmd"><code>iptables -L -n -v</code></td><td></td><td class="muted">Regras atuais (avançado).</td></tr>
+        </tbody></table>
+      </div>
+    </details>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="tips" aria-label="Dicas rápidas">
+        <div class="tip">Use <kbd>T</kbd> para alternar tema, <kbd>E</kbd> para expandir tudo, <kbd>R</kbd> para recolher</div>
+        <div class="tip">Abra em <strong>Arquivo → Imprimir</strong> para salvar como PDF</div>
+      </div>
+      <p class="muted" style="margin-top:10px">Compatível com macOS, Linux e WSL. Alguns exemplos usam <code>sudo</code> — ajuste ao seu ambiente.</p>
+    </div>
+  </footer>
+
+  <script>
+    function setTheme(mode){const b=document.body; if(mode==='dark'){b.classList.remove('light'); localStorage.setItem('theme','dark'); document.getElementById('themeLabel').textContent='Tema escuro'; document.getElementById('themeDot').style.background='var(--accent)';} else {b.classList.add('light'); localStorage.setItem('theme','light'); document.getElementById('themeLabel').textContent='Tema claro'; document.getElementById('themeDot').style.background='var(--ok)';}}
+    document.getElementById('themeToggle').addEventListener('click',()=>{const now=localStorage.getItem('theme')==='dark'?'light':'dark'; setTheme(now);});
+    document.getElementById('expandAll').addEventListener('click',()=>{document.querySelectorAll('details.card').forEach(d=>d.open=true);});
+    document.getElementById('collapseAll').addEventListener('click',()=>{document.querySelectorAll('details.card').forEach(d=>d.open=false);});
+    document.getElementById('printBtn').addEventListener('click',()=>window.print());
+    window.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return; const k=e.key.toLowerCase(); if(k==='e'){e.preventDefault();document.getElementById('expandAll').click();} else if(k==='r'){e.preventDefault();document.getElementById('collapseAll').click();} else if(k==='p'){e.preventDefault();document.getElementById('printBtn').click();} else if(k==='t'){e.preventDefault();document.getElementById('themeToggle').click();}});
+    setTheme(localStorage.getItem('theme')||'light');
+  </script>
+</body>
+</html>
