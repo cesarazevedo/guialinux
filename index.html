@@ -324,7 +324,7 @@
 
     <!-- ===== Variáveis de Ambiente ===== -->
     <details class="card" open>
-      <summary><span style="flex:1">Variáveis de Ambiente</span><span class="badge">6 comandos</span></summary>
+      <summary><span style="flex:1">Variáveis de Ambiente</span><span class="badge">6 comandos + principais variáveis</span></summary>
       <div class="content">
         <p class="desc">Configuração e uso de variáveis do sistema.</p>
         <table><thead><tr><th>Comando</th><th>Exemplo</th><th>Notas</th></tr></thead><tbody>
@@ -334,6 +334,22 @@
           <tr><td class="cmd"><code>printenv &lt;var&gt;</code></td><td>printenv USER</td><td class="muted">Mostra variável específica.</td></tr>
           <tr><td class="cmd"><code>source ~/.bashrc</code></td><td></td><td class="muted">Recarrega configurações do shell.</td></tr>
           <tr><td class="cmd"><code>unset &lt;var&gt;</code></td><td>unset TEMP_VAR</td><td class="muted">Remove variável da sessão.</td></tr>
+        </tbody></table>
+        
+        <p style="margin-top:16px; font-weight:600;">Principais Variáveis do Sistema:</p>
+        <table><thead><tr><th>Variável</th><th>Descrição</th><th>Exemplo Típico</th></tr></thead><tbody>
+          <tr><td class="cmd"><code>$PATH</code></td><td class="muted">Diretórios onde buscar executáveis</td><td>/usr/bin:/bin:/usr/local/bin</td></tr>
+          <tr><td class="cmd"><code>$HOME</code></td><td class="muted">Diretório pessoal do usuário</td><td>/home/joao</td></tr>
+          <tr><td class="cmd"><code>$USER</code></td><td class="muted">Nome do usuário atual</td><td>joao</td></tr>
+          <tr><td class="cmd"><code>$SHELL</code></td><td class="muted">Shell padrão do usuário</td><td>/bin/bash</td></tr>
+          <tr><td class="cmd"><code>$PWD</code></td><td class="muted">Diretório de trabalho atual</td><td>/home/joao/projetos</td></tr>
+          <tr><td class="cmd"><code>$OLDPWD</code></td><td class="muted">Diretório anterior (cd -)</td><td>/var/log</td></tr>
+          <tr><td class="cmd"><code>$EDITOR</code></td><td class="muted">Editor de texto padrão</td><td>vim, nano, code</td></tr>
+          <tr><td class="cmd"><code>$LANG</code></td><td class="muted">Idioma e codificação do sistema</td><td>pt_BR.UTF-8</td></tr>
+          <tr><td class="cmd"><code>$PS1</code></td><td class="muted">Formato do prompt do shell</td><td>\u@\h:\w\$</td></tr>
+          <tr><td class="cmd"><code>$TERM</code></td><td class="muted">Tipo de terminal</td><td>xterm-256color</td></tr>
+          <tr><td class="cmd"><code>$HOSTNAME</code></td><td class="muted">Nome da máquina</td><td>servidor-web</td></tr>
+          <tr><td class="cmd"><code>$TZ</code></td><td class="muted">Fuso horário</td><td>America/Sao_Paulo</td></tr>
         </tbody></table>
       </div>
     </details>
